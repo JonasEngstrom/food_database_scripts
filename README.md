@@ -41,6 +41,15 @@ Links an ingredient from the view `VIEW_ingredients` to the table `recipes` and 
 ```bash
 ./add_ingredient_to_recipe.sh INGREDIENT_NAME RECIPE_NAME
 ```
+#### `add_meal_to_log.sh`
+
+Adds a meal to the `meal_log` table in `nutrition.db`. Takes three arguments `PERSON_NAME`, `RECIPE_NAME`, and `DATE`. All arguments are optional. `PERSON_NAME` and `RECIPE_NAME` searches the tables people and recipes respectively for a person and recipe with the name in question. If only one entry per parameter is found, that entry is used, otherwise the user has to explicitly choose one of the possbile matches. `DATE` defaults to today’s date and is otherwise given as yyyy-mm-dd.
+
+##### Usage
+
+```bash
+./add_meal_to_log.sh PERSON_NAME RECIPE_NAME DATE
+```
 
 #### `add_person.sh`
 
