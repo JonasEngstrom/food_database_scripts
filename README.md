@@ -95,7 +95,7 @@ Displays nutrition facts for entries in the view `VIEW_recipe_nutrition` in `nut
 
 #### `list_recipe_ingredients.sh`
 
-Lists ingredients and their nutrition facts for entries in the view `VIEW_list_recipe_ingredients` in the sqlite3 database `nutrition.db`. The argument `RECIPE_NAME` is optional. If not provided, the entire view is returned.
+Lists ingredients and their nutrition facts for entries in the view `VIEW_list_recipe_ingredients` in `nutrition.db`. The argument `RECIPE_NAME` is optional. If not provided, the entire view is returned.
 
 ##### Usage
 
@@ -105,12 +105,22 @@ Lists ingredients and their nutrition facts for entries in the view `VIEW_list_r
 
 #### `view_meal_log.sh`
 
-Shows the view VIEW_nutrition_intake_by_meal from the sqlite3 database nutrition.db. If the optional argument PERSON_NAME is given, it shows the meal log only for that person.
+Shows the view `VIEW_nutrition_intake_by_meal` in `nutrition.db`. If the optional argument `PERSON_NAME` is given, it shows the meal log only for that person.
 
 ##### Usage
 
 ```bash
 ./view_meal_log.sh PERSON_NAME
+```
+
+#### `view_todays_meals.sh`
+
+Shows a summary of one day’s intake for a person in the view `VIEW_nutrition_intake_per_meal` in `nutrition.db`. The second argument `DATE` is optional and defaults to today’s date if no date is specified, dates should be given in the format yyyy-mm-dd.
+
+##### Usage
+
+```bash
+./view_todays_meal.sh PERSON_NAME DATE
 ```
 
 ### Other Files

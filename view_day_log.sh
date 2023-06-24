@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# Shows the view VIEW_nutrition_intake_by_meal from the sqlite3 database
+# Shows the view VIEW_nutrition_intake_by_date from the sqlite3 database
 # nutrition.db. If the optional argument PERSON_NAME is given, it shows
-# the meal log only for that person.
+# the date log only for that person.
 # Usage:
-# ./view_meal_log.sh PERSON_NAME
+# ./view_date_log.sh PERSON_NAME
 
 if [[ $# -gt 0 ]] ; then
     number_of_people_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM people WHERE person_name LIKE '%$1%';" << EOF)
@@ -39,7 +39,7 @@ if [[ $# -gt 0 ]] ; then
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
             *
         FROM
-            VIEW_nutrition_intake_by_meal
+            VIEW_nutrition_intake_by_date
         WHERE
             person_id IS $person_id
         ORDER BY
@@ -48,7 +48,7 @@ else
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         *
     FROM
-        VIEW_nutrition_intake_by_meal
+        VIEW_nutrition_intake_by_date
     ORDER BY
         meal_date,
         person_name,

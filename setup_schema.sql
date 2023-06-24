@@ -132,6 +132,7 @@ SELECT
     meal_date,
     person_id,
     person_name,
+    VIEW_recipe_nutrition.recipe_name AS recipe_name,
     energy_kcal,
     fat_total_g,
     sum_saturated_fatty_acids_g,
