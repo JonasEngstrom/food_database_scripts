@@ -7,18 +7,22 @@
 # Usage:
 # ./view_todays_meal.sh PERSON_NAME DATE
 
+# Check that name is passed as argument
 if [[ $# -eq 0 ]] ; then
     echo 'You need to specify a name as an argument to the script, i.e. ./view_todays_meals.sh'
     exit 0
 fi
 
+# Check how many entries in the database that match the name given
 number_of_people_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM people WHERE person_name LIKE '%$1%';" << EOF)
 
+# Throw an error if person does not exist in database
 if [[ $number_of_people_matches -eq 0 ]] ; then
     echo 'No person by that name found in database.'
     exit 0
 fi
 
+# Ask user to clarify which person they mean if the name matches more than one database entry
 if [[ $number_of_people_matches -gt 1 ]] ; then
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         *
@@ -41,16 +45,20 @@ else
         person_name LIKE '%$1%';" << EOF)
 fi
 
+# Set date to today’s date unless user has specified other date
 if [[ $# -gt 1 ]] ; then
     meal_date=$2
 else
     meal_date=$(date +%Y-%m-%d)
 fi
 
+# Get person’s full name from database
 person_name=$(sqlite3 nutrition.db -cmd "SELECT person_name FROM people WHERE id IS '$person_id';" << EOF)
 
+# Print a header for output
 echo 'Nutrition intake summary for' $person_name 'on' $meal_date':'
 
+# Print output table
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "WITH summary_table AS
 (
     SELECT

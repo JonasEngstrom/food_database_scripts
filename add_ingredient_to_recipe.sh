@@ -10,6 +10,7 @@
 # Usage:
 # ./add_ingredient_to_recipe.sh INGREDIENT_NAME RECIPE_NAME
 
+# Check whether user has passed at least one argument
 if [[ $# -gt 0 ]] ; then
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         food_name,
@@ -24,6 +25,7 @@ if [[ $# -gt 0 ]] ; then
     number_of_ingredient_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM VIEW_ingredients WHERE food_name LIKE '%$1%';" << EOF)
 fi
 
+# Check whether user has passed at least two arguments
 if [[ $# -gt 1 ]] ; then
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         *
@@ -37,6 +39,7 @@ if [[ $# -gt 1 ]] ; then
     number_of_recipe_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM recipes WHERE recipe_name LIKE '%$2%';" << EOF)
 fi
 
+# If first argument matches more than one entry, ask user to clarify
 if [[ $number_of_ingredient_matches -eq 1 ]] ; then
     ingredient_id=$(sqlite3 nutrition.db -cmd "SELECT food_number FROM VIEW_ingredients WHERE food_name LIKE '%$1%';" << EOF)
 else
@@ -44,6 +47,7 @@ else
     read ingredient_id
 fi
 
+# If second argument matches more than one entry, ask user to clarify
 if [[ $number_of_recipe_matches -eq 1 ]] ; then
     recipe_id=$(sqlite3 nutrition.db -cmd "SELECT id FROM recipes WHERE recipe_name LIKE '%$2%';" << EOF)
 else
@@ -51,9 +55,11 @@ else
     read recipe_id
 fi
 
+# Ask user for the rest of the data needed
 echo 'Number of grams of ingredient in recipe:'
 read grams
 
+# Make new database entry
 sqlite3 nutrition.db "INSERT INTO recipe_ingredients (
     recipe_id,
     ingredient_id,
@@ -65,6 +71,8 @@ VALUES
     '$ingredient_id',
     $grams
 );"
+
+# Print last database entry for confirmation
 
 sqlite3 nutrition.db -cmd ".separator ''" "SELECT
     'Added ',

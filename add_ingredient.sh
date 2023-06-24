@@ -4,13 +4,15 @@
 # Usage:
 # ./add_ingredient.sh INGREDIENT_NAME
 
+# Check whether user has passed a food name as an argument and ask otherwise
 if [[ $# -eq 0 ]] ; then
-    echo 'Produktnamn:'
+    echo 'Food name:'
     read food_name
 else
     food_name="$1"
 fi
 
+# Ask for the rest of the nutrtion information
 echo 'Energy (kcal):'
 read energy_kcal
 
@@ -32,6 +34,7 @@ read protein_g
 echo 'Sodium chloride (g):'
 read sodium_chloride_g
 
+# Make new database entry
 sqlite3 nutrition.db "INSERT INTO own_ingredients (
     food_name,
     energy_kcal,
@@ -54,6 +57,7 @@ VALUES
     $sodium_chloride_g
 );"
 
+# Print last database entry for confirmation
 echo 'Last added ingredient in database:'
 
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT 

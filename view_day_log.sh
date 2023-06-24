@@ -6,14 +6,17 @@
 # Usage:
 # ./view_date_log.sh PERSON_NAME
 
+# Check whether user has specified a name
 if [[ $# -gt 0 ]] ; then
     number_of_people_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM people WHERE person_name LIKE '%$1%';" << EOF)
 
+    # Throw an error if name does not exist in database
     if [[ $number_of_people_matches -eq 0 ]] ; then
         echo 'No person by that name found in database.'
         exit 0
     fi
 
+    # Ask user to clarify if several people with the same name exist in database
     if [[ $number_of_people_matches -gt 1 ]] ; then
         sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
             *
@@ -36,6 +39,7 @@ if [[ $# -gt 0 ]] ; then
             person_name LIKE '%$1%';" << EOF)
     fi
 
+    # Print output (if user has specified a name)
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
             *
         FROM
@@ -45,6 +49,7 @@ if [[ $# -gt 0 ]] ; then
         ORDER BY
             meal_date;"
 else
+    # Print output (if user has not specified a name)
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         *
     FROM

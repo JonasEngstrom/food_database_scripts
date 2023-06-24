@@ -7,6 +7,7 @@
 # Usage:
 # ./list_recipe_ingredients.sh RECIPE_NAME
 
+# Print output
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
     *
 FROM

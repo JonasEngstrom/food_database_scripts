@@ -4,6 +4,7 @@
 # Usage:
 # ./find_ingredient.sh INGREDIENT_NAME
 
+# Print output
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
     food_name,
     food_number,

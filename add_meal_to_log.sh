@@ -10,6 +10,7 @@
 # Usage:
 # ./add_meal_to_log.sh PERSON_NAME RECIPE_NAME DATE
 
+# Check whether user has passed at least one argument and use the first one as person_name in that case
 if [[ $# -gt 0 ]] ; then
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         *
@@ -23,6 +24,7 @@ if [[ $# -gt 0 ]] ; then
     number_of_people_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM people WHERE person_name LIKE '%$1%';" << EOF)
 fi
 
+# Check whether user has passed at least two arguments and use the second as recipe_name in that case
 if [[ $# -gt 1 ]] ; then
     sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT
         *
@@ -36,17 +38,21 @@ if [[ $# -gt 1 ]] ; then
     number_of_recipe_matches=$(sqlite3 nutrition.db -cmd "SELECT COUNT(*) FROM recipes WHERE recipe_name LIKE '%$2%';" << EOF)
 fi
 
+# Check whether person exists in database and throw an error otherwise
 if [[ $number_of_people_matches -eq 0 ]] ; then
     echo 'Person not found in database. Please check spelling, or use script add_person.sh to add person to database.'
     exit 0
 fi
 
+# Check whether user has passed at least three arguments and use the third one as meal_date in that case
+# otherwise set meal_date to today’s date
 if [[ $# -gt 2 ]] ; then
     meal_date=$3
 else
     meal_date=$(date +%Y-%m-%d)
 fi
 
+# Ask user to clarify what person they want to enter data for, if name matches more than one database entry
 if [[ $number_of_people_matches -eq 1 ]] ; then
     person_id=$(sqlite3 nutrition.db -cmd "SELECT id FROM people WHERE person_name LIKE '%$1%';" << EOF)
 else
@@ -54,6 +60,7 @@ else
     read person_id
 fi
 
+# Ask user to clarify what recipe they want to enter data for, if name matches more than one database entry
 if [[ $number_of_recipe_matches -eq 1 ]] ; then
     recipe_id=$(sqlite3 nutrition.db -cmd "SELECT id FROM recipes WHERE recipe_name LIKE '%$2%';" << EOF)
 else
@@ -61,9 +68,11 @@ else
     read recipe_id
 fi
 
+# Give the ability for user to comment on their entry, e.g. if it is missing data but they want to note it was a restaurant meal
 echo 'Comment:'
 read comment
 
+# Make new database entry
 sqlite3 nutrition.db "INSERT INTO meal_log (
     meal_date,
     person_id,
@@ -78,4 +87,5 @@ VALUES
     '$comment'
 );"
 
+# Print out last databse entry for confirmation
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT * FROM meal_log WHERE id = (SELECT MAX(id) FROM meal_log);"
