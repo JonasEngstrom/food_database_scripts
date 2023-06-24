@@ -15,7 +15,8 @@ Scripts are avialble to:
 
 1. Download [SQLite](https://www.sqlite.org/download.html).
 2. Set up database by running `sqlite3 --init setup_schema.sql nutrition.db`.
-3. Optional: Delete `setup_schema.sql` and `edited_database.csv`.
+3. Run `chmod +x *.sh` (or do it by individual script).
+4. Optional: Delete `setup_schema.sql` and `edited_database.csv`.
 
 ## Included Files
 
@@ -29,6 +30,16 @@ Adds a new ingredient to the table `own_ingredients` in `nutrition.db`. The argu
 
 ```bash
 ./add_ingredient.sh INGREDIENT_NAME
+```
+
+#### `add_ingredient_to_recipe.sh`
+
+Links an ingredient from the view `VIEW_ingredients` to the table `recipes` and specifies the weight of that ingredient in the recipe by using the table `recipe_ingredients` in `nutrition.db`. If arguments `INGREDIENT_NAME` and/or `RECIPE_NAME` are passed, the script searches the database for records matching the names. If there is only one match that match is used for creating the new entry, otherwise the user has to explicitly state what ingredient and recipe to use. Both arguments are optional.
+
+##### Usage
+
+```bash
+./add_ingredient_to_recipe.sh INGREDIENT_NAME RECIPE_NAME
 ```
 
 #### `add_person.sh`
