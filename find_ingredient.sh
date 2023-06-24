@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Displays nutrtion facts for entries in the view VIEW_ingredients in the sqlite3 database nutrition.db.
+# Displays nutrition facts for entries in the view VIEW_ingredients in the sqlite3 database nutrition.db.
 # Usage:
 # ./find_ingredient.sh INGREDIENT_NAME
 
