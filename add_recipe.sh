@@ -17,4 +17,6 @@ VALUES
     '$1'
 );"
 
+echo 'Last added recipe in database:'
+
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT * FROM recipes WHERE id = (SELECT MAX(id) FROM recipes);"

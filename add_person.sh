@@ -17,4 +17,6 @@ VALUES
     '$1'
 );"
 
+echo 'Last added person in database:'
+
 sqlite3 nutrition.db -cmd ".headers on" ".mode columns" "SELECT * FROM people WHERE id = (SELECT MAX(id) FROM people);"
