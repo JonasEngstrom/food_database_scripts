@@ -137,4 +137,4 @@ sqlite3 --init setup_schema.sql nutrition.db
 
 #### `edited_database.csv`
 
-An edited version of [The Swedish Food Agency’s food database](https://www.livsmedelsverket.se/en/food-and-content/naringsamnen/livsmedelsdatabasen) which is availble under a [Creative Commons Attribution 4.0 license](http://www.creativecommons.se/wp-content/uploads/2015/01/CreativeCommons-Erkännande-4.0.pdf) and was published on May 24th 2022. It has been converted and edited to facilitate import by [`setup_schmea.sql`].
+An edited version of [The Swedish Food Agency’s food database](https://www.livsmedelsverket.se/en/food-and-content/naringsamnen/livsmedelsdatabasen) which is availble under a [Creative Commons Attribution 4.0 license](http://www.creativecommons.se/wp-content/uploads/2015/01/CreativeCommons-Erkännande-4.0.pdf) and was published on May 24th 2022. It has been converted and edited to facilitate import by [`setup_schema.sql`].
