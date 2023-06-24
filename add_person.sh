@@ -2,7 +2,7 @@
 
 # Adds a new person to the table people in the sqlite3 database nutrition.db.
 # Usage:
-# ./add_person.sh NAME
+# ./add_person.sh PERSON_NAME
 
 sqlite3 nutrition.db "INSERT INTO people (
     person_name

@@ -1,3 +1,5 @@
+-- Set up database tables
+
 CREATE TABLE IF NOT EXISTS sfa_ingredients (
     food_name TEXT NOT NULL,
     food_number INTEGER PRIMARY KEY,
@@ -28,9 +30,6 @@ CREATE TABLE IF NOT EXISTS own_ingredients (
     protein_g NUMERIC NOT NULL,
     sodium_chloride_g NUMERIC NOT NULL
 );
-
-INSERT OR IGNORE INTO own_ingredients
-VALUES ('MISSING DATA',1,0,0,0,0,0,0,0);
 
 CREATE VIEW IF NOT EXISTS VIEW_ingredients AS
 SELECT
@@ -178,3 +177,14 @@ ORDER BY
     person_name,
     person_id
 ;
+
+-- Set up database entries to handle missing data
+
+INSERT OR IGNORE INTO own_ingredients
+VALUES ('MISSING DATA',1,0,0,0,0,0,0,0);
+
+INSERT OR IGNORE INTO recipes
+VALUES (1, 'MISSING DATA');
+
+INSERT OR IGNORE INTO recipe_ingredients
+VALUES (1,'own1',0);
