@@ -4,6 +4,8 @@ A collection of scripts for mangaing an [SQLite](https://www.sqlite.org/) databa
 
 The scripts are written using [zshell](https://www.zsh.org) on [macOS Ventura](https://www.apple.com/macos/ventura/) and should run on [bash](https://www.gnu.org/software/bash/).
 
+Note that in the database creation process ingredient and recipe tables are set up that both use the id number 1 to indicate missing data, as it is very probable that missing data would be present in any real-world dataset, and that this offers a consistent and easy to use method for logging missing data.
+
 Scripts are avialble to:
 
 - Search for nutrition information by food.
@@ -79,6 +81,16 @@ Displays nutrition facts for entries in the view `VIEW_ingredients` in nutrition
 
 ```bash
 ./find_ingredient.sh INGREDIENT_NAME
+```
+
+#### `find_recipes.sh`
+
+Displays nutrition facts for entries in the view `VIEW_recipe_nutrition` in `nutrition.db`. The argument `RECIPE_NAME` is optional. If not provided, the entire view is returned.
+
+##### Usage
+
+```bash
+./find_recipe.sh RECIPE_NAME
 ```
 
 ### Other Files
