@@ -127,7 +127,7 @@ Shows a summary of one day’s intake for a person in the view `VIEW_nutrition_i
 
 #### `setup_schema.sql`
 
-Sets up the database `nutrtion.db` (this name is optional, but the other scripts assumes this name and will have to be changed if this name is not used).
+Sets up the database `nutrition.db` (this name is optional, but the other scripts assumes this name and will have to be changed if this name is not used).
 
 ##### Usage
 
