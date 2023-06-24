@@ -4,6 +4,11 @@
 # Usage:
 # ./add_person.sh PERSON_NAME
 
+if [[ $# -eq 0 ]] ; then
+    echo 'Please pass a person’s name as an argument to the script, i.e. ./add_person.sh PERSON_NAME'
+    exit 0
+fi
+
 sqlite3 nutrition.db "INSERT INTO people (
     person_name
 )
