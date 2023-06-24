@@ -103,6 +103,16 @@ Lists ingredients and their nutrition facts for entries in the view `VIEW_list_r
 ./list_recipe_ingredients.sh RECIPE_NAME
 ```
 
+#### `view_meal_log.sh`
+
+Shows the view VIEW_nutrition_intake_by_meal from the sqlite3 database nutrition.db. If the optional argument PERSON_NAME is given, it shows the meal log only for that person.
+
+##### Usage
+
+```bash
+./view_meal_log.sh PERSON_NAME
+```
+
 ### Other Files
 
 #### `setup_schema.sql`
