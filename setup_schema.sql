@@ -178,6 +178,34 @@ ORDER BY
     person_id
 ;
 
+CREATE VIEW IF NOT EXISTS VIEW_list_recipe_ingredients AS
+SELECT
+    recipe_id,
+    recipe_name,
+    grams,
+    food_name,
+    CAST(grams AS REAL) / 100 * CAST(energy_kcal AS REAL) AS energy_kcal,
+    CAST(grams AS REAL) / 100 * CAST(fat_total_g AS REAL) AS fat_total_g,
+    CAST(grams AS REAL) / 100 * CAST(sum_saturated_fatty_acids_g AS REAL) AS sum_saturated_fatty_acids_g,
+    CAST(grams AS REAL) / 100 * CAST(carbohydrates_available_g AS REAL) AS carbohydrates_available_g,
+    CAST(grams AS REAL) / 100 * CAST(sugars_total_g AS REAL) AS sugars_total_g,
+    CAST(grams AS REAL) / 100 * CAST(protein_g AS REAL) AS protein_g,
+    CAST(grams AS REAL) / 100 * CAST(sodium_chloride_g AS REAL) AS sodium_chloride_g
+FROM
+    recipe_ingredients
+JOIN
+    VIEW_ingredients
+ON
+    ingredient_id = food_number
+JOIN
+    recipes
+ON
+    recipe_id = recipes.id
+ORDER BY
+    recipe_name,
+    recipe_id
+;
+
 -- Set up database entries to handle missing data
 
 INSERT OR IGNORE INTO own_ingredients

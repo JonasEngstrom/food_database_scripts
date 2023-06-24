@@ -93,6 +93,16 @@ Displays nutrition facts for entries in the view `VIEW_recipe_nutrition` in `nut
 ./find_recipe.sh RECIPE_NAME
 ```
 
+#### `list_recipe_ingredients.sh`
+
+Lists ingredients and their nutrition facts for entries in the view `VIEW_list_recipe_ingredients` in the sqlite3 database `nutrition.db`. The argument `RECIPE_NAME` is optional. If not provided, the entire view is returned.
+
+##### Usage
+
+```bash
+./list_recipe_ingredients.sh RECIPE_NAME
+```
+
 ### Other Files
 
 #### `setup_schema.sql`
